@@ -1,0 +1,4 @@
+# THIS FILE HAS BEEN REPLACED BY /lib/systemd/system/vncserver@.service
+VNCSERVERS="1:root 2:myuser"
+VNCSERVERARGS[1]="-geometry 1680x1050 -depth 24"
+VNCSERVERARGS[2]="-geometry 1680x1050 -depth 24"
