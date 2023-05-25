@@ -1,0 +1,58 @@
+================================================================
+INSTALL VNC
+================================================================
+yum install -y tigervnc-server xorg-x11-fonts-Type1
+================================================================
+create user acces and user vnc
+================================================================
+useradd myuser
+passwd myuser
+===============
+su myuser
+vncpasswd
+================================================================
+copy vnc configuration files
+================================================================
+//root
+cp /usr/lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@:1.service
+//myuser
+cp /usr/lib/systemd/system/vncserver@.service /etc/systemd/system/vncserver@:2.service
+================================================================
+modify vnc configuration files
+================================================================
+//use vncserver_root.service to fill vncserver@:1.service
+vim /etc/systemd/system/vncserver@:1.service
+//use vncserver_myuser.service to fill vncserver@:2.service
+vim /etc/systemd/system/vncserver@:2.service
+================================================================
+Create vncserver file
+================================================================
+touch /etc/init.d/vncserver
+chmod +x /etc/init.d/vncserver
+================================================================
+Create vncservers.conf file
+================================================================
+mkdir -p /etc/vncserver
+touch /etc/vncserver/vncservers.conf
+================================================================
+Modify vncservers file
+================================================================
+vim /etc/sysconfig/vncservers
+================================================================
+Modify network file
+================================================================
+vim /etc/sysconfig/network
+================================================================
+Open Firewall on Port 
+================================================================
+firewall-cmd --permanent --add-port=5901/tcp
+firewall-cmd --permanent --add-port=5902/tcp
+firewall-cmd --reload
+================================================================
+Operation command for vncserver
+================================================================
+systemctl daemon-reload
+service vncserver status
+service vncserver stop
+service vncserver start
+================================================================
